@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 
-@Entity(name="music") @Component
+@Entity @Component
 public class Music {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long musicNo;
@@ -68,5 +68,16 @@ public class Music {
     }
     public Music(){
 
+    }
+
+    @Override
+    public String toString() {
+        return "Music{" +
+                "musicNo=" + musicNo +
+                ", seq='" + seq + '\'' +
+                ", title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                '}';
     }
 }

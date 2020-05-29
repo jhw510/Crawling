@@ -41,7 +41,16 @@ public class ProxyContorller  {
         uploader.upload();
         return null;
     }
-    @GetMapping("/movie/{searchWord}")
+  @GetMapping("/movie/{searchWord}")
+    public void movieNaver(@PathVariable String searchWord){
+        pxy.print("넘어온 값" +searchWord);
+        crawler.movieNaver();
+
+  }
+
+
+
+   /* @GetMapping("/movie/{searchWord}")
         public HashMap<String,Object> movie(@PathVariable String searchWord){
         pxy.print("넘어온 키워드 : "+searchWord);
         box.clear();
@@ -51,7 +60,7 @@ public class ProxyContorller  {
         box.put("list",list);
 //        box.put("count",String.valueOf(list.size()));
 
-            return null;
-    }
+            return box.get();
+    }*/
 
 }
