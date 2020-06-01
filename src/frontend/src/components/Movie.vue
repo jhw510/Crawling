@@ -7,6 +7,7 @@
                 <tr>
                     <th class="text-left">No.</th>
                     <th class="text-left">영화 제목</th>
+                    <th class="text-left">영화 랭킹 날짜</th>
 
 
                 </tr>
@@ -15,6 +16,7 @@
                 <tr v-for="item of movie" :key="item.seq">
                     <td>{{ item.seq }}</td>
                     <td>{{ item.movieName }}</td>
+                    <td>{{ item.rankDate }}</td>
 
                 </tr>
                 </tbody>
@@ -38,8 +40,8 @@
         },
         computed: {
             ...mapState({
-                count: state => state.movie.count,
-               movie: state => state.movie.movie
+                count: state => state.crawling.count,
+               movie: state => state.crawling.movie
             })
         }
     };

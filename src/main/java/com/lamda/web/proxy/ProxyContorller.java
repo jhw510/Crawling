@@ -28,13 +28,15 @@ public class ProxyContorller  {
         pxy.print("넘어온 키워드 : "+searchWord);
         box.clear();
 
-        if(musicRepository.count() == 0)crawler.bugsMusic();
+        if(musicRepository.count() == 0)
+            crawler.bugsMusic();
         List<Music> list= musicRepository.findAll();
         box.put("list",list);
         box.put("count",String.valueOf(list.size()));
         pxy.print("박스에 담긴 카운트: "+box.get("count"));
         return box.get();
     }
+
     @GetMapping("/soccer/{searchWord}")
     public HashMap<String,String> soccer(@PathVariable String searchWord){
         pxy.print("넘어온 키워드:"+ searchWord);

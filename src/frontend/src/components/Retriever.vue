@@ -42,7 +42,7 @@
         computed: {
             ...mapState({
                 count: state => state.crawling.count,
-                bugsmusic: state => state.crawling.bugsmusic
+                bugsmusic : state => state.crawling.bugsmusic
             })
         }
     };

@@ -6,11 +6,12 @@ const state ={
     movie:[],
 
 }
-const actions={
+const actions = {
     async search({commit},searchWord){
         alert("검색어 :" + searchWord);
-        axios.get(state.context+`movie/`+searchWord)
+        axios.get(state.context+`movie/list/0/${searchWord}`)
             .then(({data})=>{
+
                 commit("SEARCH",data)
                 router.push("/movie");
             })

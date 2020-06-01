@@ -10,6 +10,6 @@ export default new VueRouter({
     routes: [
         { path: "/", component: Home },
         { path: "/retriever", component: Retriever },
-        {path :"/movie",component: Movie}
+        { path :"/movie",component: Movie}
     ]
 });

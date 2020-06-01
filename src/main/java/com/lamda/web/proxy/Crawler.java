@@ -25,7 +25,6 @@ public class Crawler extends Proxy {
     MovieRepository movieRepository;
 
     public void bugsMusic() {
-        inventory.clear();
         try {
             String url = "https://music.bugs.co.kr/chart";
             Connection.Response homepage = Jsoup.connect(url).method(Connection.Method.GET)
@@ -78,7 +77,6 @@ public class Crawler extends Proxy {
     }*/
 
     public void movieNaver() {
-        inventory.clear();
         try {
             String url = "https://movie.naver.com/movie/sdb/rank/rmovie.nhn";
             Connection.Response homepage = Jsoup.connect(url).method(Connection.Method.GET)
