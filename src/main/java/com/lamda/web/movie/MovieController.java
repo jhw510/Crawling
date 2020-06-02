@@ -7,7 +7,7 @@ import com.lamda.web.proxy.IFunction;
 import com.lamda.web.proxy.Pager;
 import com.lamda.web.proxy.Proxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class MovieController {
     @Autowired MovieMapper movieMapper;
     @Autowired Proxy pxy;
     @Autowired Box<Object> box;
-    @GetMapping("/list/{pageNumber}/{searchWord}")
+    @GetMapping("/{searchWord}/{pageNumber}")
 
     public Map<?,?> list(@PathVariable("pageNumber") String pageNumber,
                          @PathVariable("searchWord") String searchWord){
@@ -42,7 +42,7 @@ public class MovieController {
             pxy.print(m.toString());
         }
         box.clear();
-        box.put("count",pager);
+        box.put("pager",pager);
         box.put("list",l);
         return box.get();
     }

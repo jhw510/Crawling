@@ -41,21 +41,6 @@ const actions = {
                 });
 
         }
-
-
-       /* axios
-            .post(state.context + `bugsmusic`,searchWord, {
-                authorization: "JWT fefege..",
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            })
-            .then(({ data }) => {
-                commit("SEARCH", data);
-                router.push("/retriever");
-            })
-            .catch(() => {
-                alert("통신 실패 !");
-            });*/
     }
 };
 const mutations = {
@@ -72,7 +57,7 @@ const mutations = {
             });
         });
     },
-    MOVIE(state,data){
+   /* MOVIE(state,data){
         alert("뮤테이션에서 결과수 : " +data.count);
         state.movie=[];
         state.count=data.count;
@@ -87,7 +72,7 @@ const mutations = {
 
             });
         });
-    }
+    }*/
 
 };
 const getters = {

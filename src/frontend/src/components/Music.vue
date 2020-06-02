@@ -39,6 +39,9 @@
                 page: 1
             }
         },
+        created() {
+            alert('뮤직에서 크리티드 실행됌')
+        },
         computed: {
             ...mapState({
                 count: state => state.crawling.count,
