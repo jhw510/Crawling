@@ -22,8 +22,22 @@
                 </tbody>
             </template>
         </v-simple-table>
-        <div class="text-center">
-            <v-pagination v-model="page" :length="5" :total-visible="5"></v-pagination>
+        <div class="text-center" >
+           <div >
+               <span v-if="existPrev" class="pagenation" >PREV</span>
+               <span v-for="n of arr" :key="n" class="pagenation">{{n}}</span>
+               <span v-if="existNext " class="pagenation" >NEXT</span>
+           <!--
+               <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >이전</span>
+            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >1</span>
+            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >2</span>
+            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >3</span>
+            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >4</span>
+            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >5</span>
+               <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >다음</span>
+   -->
+           </div>
+          <!--  <v-pagination v-model="page" :length="5" :total-visible="5"></v-pagination>-->
         </div>
     </div>
 
@@ -35,8 +49,15 @@
     export default {
         data () {
             return {
-                page: 1
+                page: 1,
+                arr:[6,7,8,9,10],
+                existPrev:false,
+                existNext:true
+
             }
+        },
+        created() {
+            alert('무비에서 크리티드 실행됌')
         },
         computed: {
             ...mapState({
@@ -46,3 +67,16 @@
         }
     };
 </script>
+<style scoped>
+   .text-center{
+       margin: 0 auto;
+       width: 500px;
+       height: 100px
+   }
+    .pagenation{
+        width: 50px;
+        height: 50px;
+        border: 1px solid palevioletred;
+        margin-right: 5px
+    }
+</style>

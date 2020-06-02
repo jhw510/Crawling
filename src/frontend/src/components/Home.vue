@@ -54,6 +54,9 @@
                 searchWord: ""
             };
         },
+        created() {
+        alert('홈에서 크리티드 실행됌')
+            },
         methods: {
             search() {
 
