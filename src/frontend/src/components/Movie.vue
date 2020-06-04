@@ -1,6 +1,10 @@
 <template>
     <div>
         <h3>총게시글수 : {{pager.rowCount}}</h3>
+        <span style="float:right; margin-right: auto ">
+            <input id="searchWord" type="text" style="border: 3px solid #4485f3">
+            <button @click="tester"> 검색</button></span>
+
         <v-simple-table>
             <template v-slot:default>
                 <thead>
@@ -15,7 +19,7 @@
                 <tbody>
                 <tr v-for="item of list" :key="item.seq">
                     <td>{{ item.seq }}</td>
-                    <td>{{ item.movieName }}</td>
+                    <td><a id='sw' @click="movieclick(item.seq)" href="#">{{ item.movieName }}</a></td>
                     <td>{{ item.rankDate }}</td>
 
                 </tr>
@@ -24,18 +28,10 @@
         </v-simple-table>
         <div class="text-center" >
            <div >
-               <span v-if='pager.existPrev' class="pagenation" >PREV</span>
-               <span v-for="n of pages" :key="n" class="pagenation">{{n}}</span>
-               <span v-if='pager.existNext' class="pagenation" >NEXT</span>
-           <!--
-               <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >이전</span>
-            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >1</span>
-            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >2</span>
-            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >3</span>
-            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >4</span>
-            <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >5</span>
-               <span style="width: 50px;height: 50px; border: 1px solid palevioletred;margin-right: 5px" >다음</span>
-   -->
+               <span @click="testClick(pager.prevBlock)" v-if='pager.existPrev' class="pagenation" >PREV</span>
+               <span @click="testClick(n)" v-for="n of pages" :key="n" class="pagenation">{{n}}</span>
+               <span @click="testClick(pager.nextBlock)" v-if='pager.existNext' class="pagenation" >NEXT</span>
+
            </div>
           <!--  <v-pagination v-model="page" :length="5" :total-visible="5"></v-pagination>-->
         </div>
@@ -46,46 +42,52 @@
 
 <script>
     import { mapState } from "vuex";
-    import axios from "axios";
+    import {proxy} from "./mixins/proxy"
     export default {
-        data () {
-            return {
-                pageNumber: 0,
-                pages:[],
-
-                list:[],
-                pager: {},
-                totalCount: '',
-
-            }
-        },
+       mixins:[proxy],
         created() {
-          //  this.$store.dispatch("search/find", this.searchWord);
-            axios.get(`${this.$store.state.search.context}/movie/${this.$store.state.search.searchWord}/${this.$store.state.search.pageNumber}`)
-                    .then(res=>{
-                       res.data.list.forEach(elem =>{this.list.push(elem)})
-                        this.pager = res.data.pager
-                        let i =this.pager.pageStart+ 1
-                        let arr =[]
-                        console.log(`페이지 끝 :${this.pager.pageEnd}`)
-                        for(;i<=this.pager.pageEnd +1;i++){
-                            arr.push(i)
-                        }
-                        this.pages = arr
-                    })
-                    .catch(err=>{
-                        alert(`영화 통신실패 ${err}`)
-
-                    })
+            console.log('페이징 가기전 :')
+            let json = proxy.methods.paging(`${this.$store.state.search.context}/movie/null/0`)
+            this.$store.state.search.list = json.movie
+            this.$store.state.search.pages = json.pages
+            this.$store.state.search.pager = json.temp
+            console.log('페이징 다녀온 다음  :' +json.temp.pageSize)
         },
+
         computed: {
             ...mapState({
-                count: state => state.crawling.count,
-               movie: state => state.crawling.movie,
-                bugsmusic:state=>state.crawling.bugsmusic
+                list: state => state.search.list,
+                pages: state => state.search.pages,
+                pager:state=>state.search.pager
             })
+        },
+        methods:{
+            testClick(d){
+                proxy.methods.tester(d)
+                this.$store.dispatch("search/testClick",
+                {cate:'movie',searchWord:null,pageNumber:d-1})
+            },
+            tester(){
+               // let s= document.getElementById('searchWord')
+               //  let v=s.value
+               //  proxy.methods.tester()          원래는 이런상태
+
+                  let searchWord=document.getElementById('searchWord').value
+                if(searchWord ==='') searchWord ='null'
+                     this.$store.dispatch("search/testClick",
+                    {cate:'movie',searchWord:document.getElementById('searchWord').value,pageNumber:0})
+
+                    },
+            movieclick(searchWord){
+                //let seq= document.getElementById('seq').value
+                this.$store.dispatch("search/movieclick",
+                    {cate:'movie',searchWord:searchWord})
+             //   proxy.methods.movieclick(seq)
+            }
+             }
         }
-    };
+
+
 </script>
 <style scoped>
    .text-center{

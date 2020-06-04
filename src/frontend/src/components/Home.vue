@@ -6,10 +6,10 @@
             <input id="login" type="button" value="로그인" />
         </div>
         <br />
-        <div>
+        <div >
             <img
                     id="google"
-                    src="https://www.google.co.kr/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                    src="https://postfiles.pstatic.net/MjAxOTAzMDFfMTI2/MDAxNTUxMzY5MDQ3Mzg3.GBiTmpVRxHz028Ymg2j66srZf4C2ACnGeLH82vktKwcg.WP0XSQJDs_xvoyAHQb9-kBvNZFPov0QfgNQ2MFKaXv0g.GIF.codingboy2006/1_OF0xEMkWBv-69zvmNs6RDQ.gif?type=w773"
                     title="Google"
             />
         </div>
@@ -102,8 +102,8 @@
     }
     #google {
         display: block;
-        width: 290px;
-        height: 100px;
+        width: 800px;
+        height: 400px;
         margin: 180px auto 20px;
     }
     #search {

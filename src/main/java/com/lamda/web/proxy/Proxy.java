@@ -25,4 +25,8 @@ public class Proxy {
         Consumer<String> f = System.out::print;
         f.accept(a);
     }
+    public void println(String a){
+        Consumer<String> f = System.out::println;
+        f.accept(a);
+    }
 }
