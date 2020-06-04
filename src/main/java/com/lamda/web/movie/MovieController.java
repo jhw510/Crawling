@@ -31,7 +31,7 @@ public class MovieController {
             pager.setSearchWord("");
         }else{
          pxy.println("검색어가 "+searchWord);
-            pager.setSearchWord("searchWord");
+            pager.setSearchWord(searchWord);
         }
         pxy.println("넘어온 페이지 번호: "+pageNumber);
         pager.setPageNow(pxy.integer(pageNumber));
