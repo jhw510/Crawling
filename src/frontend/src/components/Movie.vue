@@ -98,7 +98,7 @@
     .pagenation{
         width: 50px;
         height: 50px;
-        border: 1px solid palevioletred;
+        border: 1px solid #db7093;
         margin-right: 5px
     }
 </style>

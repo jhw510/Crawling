@@ -6,6 +6,9 @@
             parameterType="com.lamda.web.movie.MovieDTO">
         insert seq,movie_name movieName, rank_date into movie
         values (#{seq},#{movieName},#{rankDate})
+        <selectKey resultType="int" keyProperty="movie_no" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
     <update id="updateMovie"
@@ -38,5 +41,45 @@
     <select id="count" resultType="int">
       select count(*)
       from movie
+    </select>
+    <select id="switchMovie"
+            resultType="com.lamda.web.movie.MovieDTO"
+            parameterType="com.lamda.web.movie.MovieDTO">
+        SELECT movie_no movieNo, seq,movie_name movieName, rank_date rankDate
+        FROM movie
+        where movie_name like '%${searchWord}%'
+        <choose>
+            <when test="movieName != null">
+                AND movie_name like #{movieName}
+            </when>
+            <when test="ost != null and ost.seq != null">
+                AND ost like #{ost.seq}
+            </when>
+            <otherwise>
+                AND rank_date like '${rankDate}%'
+            </otherwise>
+        </choose>
+    </select>
+    <update id="updateMovie" parameterType="com.lamda.web.movie.MovieDTO">
+      update movie
+       <set>
+        <if test="state != null">
+        </if>
+        <if test="title != null">
+        </if>
+        <if test="author != null and author.name != null">
+
+        </if>
+       </set>
+       where movie_no=#{movieNo}
+    </update>
+    <select id="selectPostIn" resultType="com.lamda.web.movie.MovieDTO">
+        SELECT *
+        FROM music m
+        WHERE seq in
+        <foreach item="movie" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{movie}
+        </foreach>
     </select>
 </mapper>
